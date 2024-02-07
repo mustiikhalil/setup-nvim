@@ -1,0 +1,5 @@
+require("silly.plugins-setup")
+require("silly.core.options")
+require("silly.core.keymaps")
+require("silly.core.colorscheme")
+require("silly.plugins.comment")
