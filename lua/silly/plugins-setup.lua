@@ -25,12 +25,19 @@ end
 
 return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
+
+  use 'nvim-lua/plenary.nvim'
+
   use { "catppuccin/nvim", as = "catppuccin" }
   use 'christoomey/vim-tmux-navigator'
 
+  use 'szw/vim-maximizer'
   use 'tpope/vim-surround'
   use 'vim-scripts/ReplaceWithRegister'
   use 'numToStr/comment.nvim'
+
+  use "nvim-tree/nvim-tree.lua"
+  use "nvim-tree/nvim-web-devicons"
 
   if packer_bootstrap then
     require('packer').sync()

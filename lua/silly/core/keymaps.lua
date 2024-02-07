@@ -14,10 +14,12 @@ keymap.set("n", "<leader>+", "<C-a>")
 keymap.set("n", "<leader>-", "<C-x>")
 
 -- Window management
+keymap.set("n", "<leader>n", ":NvimTreeToggle<CR>")
 keymap.set("n", "<leader>sv", "<C-w>v") -- split vertically
 keymap.set("n", "<leader>sh", "<C-w>s") -- split horizontally
 keymap.set("n", "<leader>se", "<C-w>=") -- make split equal
 keymap.set("n", "<leader>sx", ":close<CR>")
+keymap.set("n", "<leader>sm", ":MaximizerToggle<CR>")
 
 -- Managing tabs
 keymap.set("n", "<leader>to", ":tabnew<CR>") -- create new tab 
