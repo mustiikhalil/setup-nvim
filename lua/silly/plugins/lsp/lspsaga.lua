@@ -12,8 +12,11 @@ saga.setup({
     edit = "<CR>",
   },
   ui = {
+    code_action = "",
     colors = {
       normal_bg = "#022746",
     },
+    code_action_prompt = { enable = false, sign = false, virtual_text = true },
   },
 })
+
