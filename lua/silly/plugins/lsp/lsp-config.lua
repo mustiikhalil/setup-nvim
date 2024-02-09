@@ -26,6 +26,7 @@ local on_attach = function(client, bufnr)
   -- set keybinds
   keymap.set("n", "gf", "<cmd>Lspsaga lsp_finder<CR>", opts) -- show definition, references
   keymap.set("n", "K", vim.lsp.buf.hover, opts)
+  keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
   keymap.set("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts) -- got to declaration
   keymap.set("n", "gd", "<cmd>Lspsaga peek_definition<CR>", opts) -- see definition and make edits in window
   keymap.set("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts) -- go to implementation
@@ -42,7 +43,7 @@ end
 
 -- used to enable autocompletion (assign to every lsp server config)
 local capabilities = cmp_nvim_lsp.default_capabilities()
-print("setup")
+
 -- configure typescript server with plugin
 typescript.setup({
   server = {
@@ -100,12 +101,31 @@ lspconfig["gopls"].setup({
   },
 })
 
-lspconfig["sourcekit"].setup({
+lspconfig["swift_mesonls"].setup({
   server = {
     capabilities = capabilities,
     on_attach = on_attach,
   },
 })
+
+local util = require("lspconfig.util")
+
+lspconfig.sourcekit.setup{
+  server = {
+    capabilities = capabilities,
+    on_attach = on_attach,
+  },
+  cmd = {
+    vim.trim(vim.fn.system("xcrun -f sourcekit-lsp")),
+    -- '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp'
+  },
+  root_dir = function(filename, _)
+    return util.root_pattern("buildServer.json")(filename)
+      or util.root_pattern("*.xcodeproj", "*.xcworkspace")(filename)
+      or util.find_git_ancestor(filename)
+      or util.root_pattern("Package.swift")(filename)
+  end,
+}
 
 lspconfig["eslint"].setup({
   server = {

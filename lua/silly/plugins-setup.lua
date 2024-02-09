@@ -55,6 +55,15 @@ require("lazy").setup({
   { "glepnir/lspsaga.nvim", branch = "main" },
   "onsails/lspkind.nvim",
 
+  { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+
+    -- auto closing
+  "windwp/nvim-autopairs", -- autoclose parens, brackets, quotes, etc...
+  { "windwp/nvim-ts-autotag", after = "nvim-treesitter" }, -- autoclose tags
+
+  -- git integration
+  "lewis6991/gitsigns.nvim", -- show line modifications on left hand side
+
   -- xcodebuild
   "wojciech-kulik/xcodebuild.nvim",
   "MunifTanjim/nui.nvim",
