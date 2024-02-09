@@ -23,7 +23,7 @@ nvimtree.setup({
   },
   actions = {
     open_file = {
-      window_picker = { 
+      window_picker = {
         enable = false,
       }
     }
