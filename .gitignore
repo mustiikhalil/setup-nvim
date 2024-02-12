@@ -2,3 +2,4 @@
 .DS_Store
 plugin
 lazy-lock.json
+xcode-build-server
