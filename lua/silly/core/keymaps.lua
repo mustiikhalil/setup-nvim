@@ -6,6 +6,8 @@ local keymap = vim.keymap
 
 keymap.set("i", "jk", "<ESC>")
 keymap.set("n", "<leader>nh", ":nohl<CR>")
+keymap.set("n", "<leader>z", "dwis <Esc>0")
+keymap.set("n", "<leader>a", "i# <Esc>0")
 
 -- Delete character without copying into register
 keymap.set("n", "x", "_x")
