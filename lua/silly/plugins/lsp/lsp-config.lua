@@ -10,12 +10,6 @@ if not cmp_nvim_lsp_status then
   return
 end
 
--- import typescript plugin safely
-local typescript_setup, typescript = pcall(require, "typescript")
-if not typescript_setup then
-  return
-end
-
 local keymap = vim.keymap -- for conciseness
 
 -- enable keybinds only for when lsp server available
@@ -44,16 +38,8 @@ end
 -- used to enable autocompletion (assign to every lsp server config)
 local capabilities = cmp_nvim_lsp.default_capabilities()
 
--- configure typescript server with plugin
-typescript.setup({
-  server = {
-    capabilities = capabilities,
-    on_attach = on_attach,
-  },
-})
-
 -- configure lua server (with special settings)
-lspconfig["lua_ls"].setup({
+lspconfig.lua_ls.setup({
   capabilities = capabilities,
   on_attach = on_attach,
   settings = { -- custom settings for lua
@@ -80,13 +66,6 @@ lspconfig["bashls"].setup({
   },
 })
 
-lspconfig["csharp_ls"].setup({
-  server = {
-    capabilities = capabilities,
-    on_attach = on_attach,
-  },
-})
-
 lspconfig["clangd"].setup({
   server = {
     capabilities = capabilities,
@@ -101,37 +80,28 @@ lspconfig["gopls"].setup({
   },
 })
 
-lspconfig["swift_mesonls"].setup({
-  server = {
-    capabilities = capabilities,
-    on_attach = on_attach,
-  },
-})
-
 local util = require("lspconfig.util")
 
-lspconfig.sourcekit.setup{
+lspconfig.sourcekit.setup {
+  capabilities = {
+    workspace = {
+      didChangeWatchedFiles = {
+        dynamicRegistration = true,
+      },
+    },
+  },
   server = {
     capabilities = capabilities,
     on_attach = on_attach,
   },
-  cmd = {
-    vim.trim(vim.fn.system("xcrun -f sourcekit-lsp")),
-    -- '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/sourcekit-lsp'
-  },
-  root_dir = function(filename, _)
-    return util.root_pattern("buildServer.json")(filename)
-      or util.root_pattern("*.xcodeproj", "*.xcworkspace")(filename)
-      or util.find_git_ancestor(filename)
-      or util.root_pattern("Package.swift")(filename)
-  end,
 }
 
-lspconfig["eslint"].setup({
-  server = {
-    capabilities = capabilities,
-    on_attach = on_attach,
-  },
+vim.api.nvim_create_autocmd('LspAttach', {
+    desc = 'LSP Actions',
+    callback = function(args)
+      vim.keymap.set('n', 'K', vim.lsp.buf.hover, {noremap = true, silent = true})
+      vim.keymap.set('n', 'gd', vim.lsp.buf.definition, {noremap = true, silent = true})
+    end,
 })
 
 lspconfig["jsonls"].setup({

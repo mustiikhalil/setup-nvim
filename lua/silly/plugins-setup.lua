@@ -46,11 +46,8 @@ require("lazy").setup({
   "rafamadriz/friendly-snippets", -- useful snippets
 
   -- LSP
-  "williamboman/mason.nvim",
-  "williamboman/mason-lspconfig.nvim",
   "neovim/nvim-lspconfig",
   "hrsh7th/cmp-nvim-lsp",
-  "jose-elias-alvarez/typescript.nvim",
 
   { "glepnir/lspsaga.nvim", branch = "main" },
   "onsails/lspkind.nvim",

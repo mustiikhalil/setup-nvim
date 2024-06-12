@@ -34,6 +34,13 @@ cmp.setup({
     ["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
     ["<C-e>"] = cmp.mapping.abort(), -- close completion window
     ["<CR>"] = cmp.mapping.confirm({ select = true }),
+    ["<tab>"] = cmp.mapping(function(original)
+        if cmp.visible() then
+            cmp.select_next_item() -- run completion selection if completing
+        else
+            original()      -- run the original behavior if not completing
+        end
+    end, {"i", "s"}),
   }),
   -- sources for autocompletion
   sources = cmp.config.sources({
