@@ -80,8 +80,6 @@ lspconfig["gopls"].setup({
   },
 })
 
-local util = require("lspconfig.util")
-
 lspconfig.sourcekit.setup {
   capabilities = {
     workspace = {
