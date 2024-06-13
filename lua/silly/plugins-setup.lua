@@ -58,6 +58,8 @@ require("lazy").setup({
   "windwp/nvim-autopairs", -- autoclose parens, brackets, quotes, etc...
   { "windwp/nvim-ts-autotag", after = "nvim-treesitter" }, -- autoclose tags
 
+  {'akinsho/toggleterm.nvim', version = "*", config = true},
+
   -- git integration
   "lewis6991/gitsigns.nvim", -- show line modifications on left hand side
 
