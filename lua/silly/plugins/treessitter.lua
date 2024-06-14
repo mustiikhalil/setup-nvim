@@ -12,8 +12,6 @@ configs.setup({
     "swift",
     "go",
     "cpp",
-    "c_sharp",
-    "typescript",
     "json5"
   },
   sync_install = false,
